@@ -1,7 +1,69 @@
-.login{
-	background:  #383866;
- color: white;  
+.body_create_email
+{
+	background-image: url(http://www.photoshop-designs.com/mlaqr/tutoriales/31227/2.gif);
+	background-repeat: no-repeat;
+	background-size: cover;
+	-moz-background-size: cover;
+	-webkit-background-size: cover;
+	-o-background-size: cover;
 }
-.main{
+
+.form_create_email
+{
 	background: white;
+	height: 537px;
+	border-radius: 9px;
+	margin-top:17%;
+}
+
+.input_create_email ,#btn_create_Email
+{
+	margin-top: 5%;
+
+}
+
+#image_profile{
+	width: 100%;
+	height: 147px;
+	margin-top: -102px;
+
+}
+
+.thumb{
+	width: 37%;
+	border-radius: 100!important;
+	height: 147px;
+	margin-left: 28%;
+}
+
+.custom-input-file {
+	overflow: hidden;
+	position: relative;
+	cursor: pointer;
+	width: 100%;
+}
+.custom-input-file .input-file {
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	font-size: 10000px;
+	border: 10000px solid transparent;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	position: absolute;
+	right: -1000px;
+	top: -1000px;
+}
+.custom-input-file,.input_create_email ,#btn_create_Email{
+
+	margin-top: 7%;
+}
+
+#btn_create_Email
+{
+    background: #9ACD32;
+    border-radius: 6px;
+    width: 46%;
+    height: 40px;
+
 }
