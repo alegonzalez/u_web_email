@@ -7,6 +7,15 @@ body
 	-webkit-background-size: cover;
 	-o-background-size: cover;
 }
+.form_login{
+	background: white;
+	height: 362px;
+	border-radius: 9px;
+	    margin-top: 36%;
+}
+.space_login{
+	padding-top: 7%;
+}
 
 .form_create_email
 {
@@ -59,11 +68,12 @@ body
 	margin-top: 7%;
 }
 
-#btn_create_Email
+#btn_create_Email,#btn_login
 {
-    background: #9ACD32;
-    border-radius: 6px;
-    width: 46%;
-    height: 40px;
+	background: #9ACD32;
+	border-radius: 6px;
+	width: 46%;
+	height: 40px;
 
 }
+
