@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 body
 {
 	background-image: url(http://www.photoshop-designs.com/mlaqr/tutoriales/31227/2.gif);
@@ -12,7 +12,7 @@ body
 	background: white;
 	height: 362px;
 	border-radius: 9px;
-	    margin-top: 36%;
+	margin-top: 36%;
 }
 .space_login{
 	padding-top: 7%;
@@ -78,12 +78,50 @@ body
 
 }
 
-=======
+
 .login{
 	background:  #383866;
- color: white;  
+	color: white;  
 }
 .main{
 	background: white;
 }
->>>>>>> parent of 47aca24... Diseño de creación de Email
+#salida,#enviados,#messages,#redactar{
+	background: white;
+	color: black;
+	height: 560px;
+	margin-top: 4%;
+	border-radius: 9px;
+}
+p{
+	color: white;
+}
+.footer{
+	/*background: 	#2E8B57;*/
+	
+	background: #B8860B;
+	margin-top: 5%;
+}
+
+.date_footer ul li{
+	color: white;
+    padding-top: 2%;
+    margin-top: 2%;
+}
+.date_footer ul li a{
+text-decoration: none;
+color: white;
+background: transparent;
+}
+.titule_footer{
+color: white;
+}
+.email{
+	margin-top: 4%;
+	margin-left: 4%;
+}
+#out,#write,#send{
+	color: white;
+}
+
+
