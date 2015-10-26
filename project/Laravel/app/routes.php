@@ -10,8 +10,15 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-
+/*
 Route::get('/', function()
 {
 	return View::make('hello');
+});
+Route::controller( '/games', 'GameController' );
+
+*/
+Route::get('ale', function()
+{
+	return View::make('login');
 });
