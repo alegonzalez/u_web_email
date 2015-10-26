@@ -15,10 +15,13 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
-Route::controller( '/games', 'GameController' );
+
 
 */
+Route::controller('prueba', 'UserController');
+/*
 Route::get('ale', function()
 {
 	return View::make('login');
 });
+*/
