@@ -19,9 +19,11 @@ Route::get('/', function()
 
 */
 Route::controller('prueba', 'UserController');
-/*
-Route::get('ale', function()
+
+
+Route::get('login', function()
 {
-	return View::make('login');
+
+Route::controller('login', 'UserController');
+return View::make('login');
 });
-*/
