@@ -18,12 +18,39 @@ Route::get('/', function()
 
 
 */
-Route::controller('prueba', 'UserController');
+//Route::controller('Controlador', 'users');
 
 
+
+Route::controller('Controlador','UserController');
+
+
+
+Route::get('Controlador',function()
+{
+	$user=new email;
+
+	$user->email="Hola";
+	$user->contraseña="Cuenta prueba";
+
+	$user->save();
+
+	return "Hola";
+
+});
+
+
+/**
 Route::get('login', function()
 {
-
-Route::controller('login', 'UserController');
 return View::make('login');
 });
+
+Route::get('create_account', function()
+{
+return View::make('create_account');
+});
+**/
+
+
+

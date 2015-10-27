@@ -7,12 +7,15 @@
 </head>
 <body>
 
+
+	
+
 	<section class="container">
 		<section class="row">
 			<section class="col-xs-12 col-sm-6 col-sm-offset-1 col-md-5 col-md-offset-4">
 				
 
-				<form class="form-inline form_login"actions=""; method="post">
+				<form class="form-inline form_login" action="" method="post">
 					<section class="col-sm-12 col-sm-offset-3  col-md-offset-3 space_login">
 						<h3><span class="glyphicon glyphicon-envelope"></span>UwebEMAIL</h3>	
 					</section>
@@ -34,12 +37,17 @@
 					</section>
 					<section class="col-xs-12 col-sm-12 col-sm-offset-4 col-md-offset-4 space_login">
 						
-						<button type="submit" >Create accoutn</button>
 
-					<!--	<a href=""><span class="glyphicon glyphicon-plus"></span>Create account</a> -->
 
-						<form action="Laravel/public/Controlador/create_account/" method="post">
-							
+						<!--
+						<form actions="Laravel/public/Controlador/create" method="post">
+						<button type="submit" class="btn btn-default" id="btn_login">
+	                        <a href=""  ><span class="glyphicon glyphicon-plus"></span>Create account</a>
+						</button>
+-->
+
+						
+
 						</form>
 
 					</section>
