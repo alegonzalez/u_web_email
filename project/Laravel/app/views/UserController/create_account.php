@@ -5,7 +5,8 @@
 	<title>Create Account</title>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/estilo.css">
+	
+ <link rel="stylesheet" href="<?php echo asset('assets/css/estilo.css') ?>">
 
 </head>
 <body>
@@ -24,7 +25,7 @@
 
 						<br>
 						<output id="list" name="Photo">
-							<img src="https://cdn4.iconfinder.com/data/icons/e-commerce-icon-set/48/Username_2-128.png "P"" name="Photo" id="Photo" class="img-circle thumb">
+							<img src="https://cdn4.iconfinder.com/data/icons/e-commerce-icon-set/48/Username_2-128.png" name="P" id="Photo" class="img-circle thumb">
 						</output>
 
 					</section>

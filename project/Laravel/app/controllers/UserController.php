@@ -22,7 +22,7 @@ class UserController extends BaseController {
      public function postIndex(){
 
      //Tengo que poner la pagina email
-   // return View::make('UserController.create_account');
+   //return View::make('UserController.create_account');
     
     }
 
@@ -41,9 +41,9 @@ class UserController extends BaseController {
     {
           $user = new User;
 
-        $user->Id = 1;
+        $user->Id = 123;
         $user->UserName =Input::get('UserName');
-        $user->Photo = Input::file('P');
+        $user->Photo ="null";
 //         $user-= Input::get('hola');
         $user->Email =Input::get('Email');
         $user->Password=Input::get('Password');
