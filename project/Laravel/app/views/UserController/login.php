@@ -16,7 +16,7 @@
 			<section class="col-xs-12 col-sm-6 col-sm-offset-1 col-md-5 col-md-offset-4">
 				
 
-				<form class="form-inline form_login" action="" method="post">
+				<form class="form-inline form_login" action="" method="post" enctype="multipart/form-data">
 					<section class="col-sm-12 col-sm-offset-3  col-md-offset-3 space_login">
 						<h3><span class="glyphicon glyphicon-envelope"></span>UwebEMAIL</h3>	
 					</section>

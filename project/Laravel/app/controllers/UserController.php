@@ -1,4 +1,5 @@
 <?php
+
 class UserController extends BaseController {
 
     /**
@@ -9,55 +10,62 @@ class UserController extends BaseController {
     //  $id="8";
     //  $user = DB::select('select * from user where id='.$id);
     //return  $user;
-  
+
 
 
     public function getIndex(){
 
-    
-     return View::make('UserController.login');
-    
-    }
 
-     public function postIndex(){
+     return View::make('UserController.login');
+
+   }
+
+   public function postIndex(){
 
      //Tengo que poner la pagina email
-   //return View::make('UserController.create_account');
-    
-    }
+     return View::make('UserController.create_account');
+
+   }
 
 
 
 
-    public function get_create()
-    {
+   public function get_create()
+   {
  //       $email=Input::get('email');
 
-       $user = User::all();
-        return View::make('UserController.create_account')->with ('UserController',$user);
-    }
+     $user = User::all();
+        return View::make('UserController.create_account');//->with ('UserController',$user);
+      }
 
-    public function post_create()
-    {
-          $user = new User;
+      public function post_create()
+      {
+        $user = new User;
 
         $user->Id = 123;
         $user->UserName =Input::get('UserName');
-        $user->Photo ="null";
-//         $user-= Input::get('hola');
+     // $user->Photo =Image::make(Input::file('files')->getRealPath())->resize(870, null, true, false);
+        //$user->Photo = Input::get('P');
+        
+      
         $user->Email =Input::get('Email');
         $user->Password=Input::get('Password');
+        $encrypted = Crypt::encrypt($user->Password);
+
+       //Desencriptar  $decrypted = Crypt::decrypt($encrypted);
+        
+       
         $user->State= 1;
-    
 
-        $user->save();
 
-        return var_dump($user);
-      
+        //$user->save();
+
+      //return var_dump($user);
+
+      }
+
+
     }
-
-
-}
 
 
 

@@ -28,7 +28,7 @@ Route::controller('Controlador','UserController');
 
 Route::get('Controlador',function()
 {
-	$user=new email;
+	$user = new email;
 
 	$user->email="Hola";
 	$user->contraseña="Cuenta prueba";

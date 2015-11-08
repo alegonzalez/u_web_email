@@ -3,10 +3,11 @@
 <html>
 <head>
 	<title>Create Account</title>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- Latest compiled and minified CSS  -->
 	
- <link rel="stylesheet" href="<?php echo asset('assets/css/estilo.css') ?>">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<?php echo asset('assets/css/estilo.css') ?>">
 
 </head>
 <body>
@@ -74,8 +75,10 @@
 		</section>
 	</section>
 </section>
+
+
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="create_account.js"></script>
+<script src="<?php echo asset('assets/js/create_account.js') ?>"></script>
 </body>
 </html>
 

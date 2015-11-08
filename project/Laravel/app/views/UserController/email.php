@@ -66,7 +66,7 @@
 	
 
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script type="text/javascript" src="email.js"></script>
+	<script src="<?php echo asset('assets/js/email.js') ?>"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js" ></script>
 
 </body>
