@@ -51,5 +51,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'User_controller';
 $route['create_account'] = 'User_controller/viewCreateAccount';
+$route['Email']="User_controller/email";
+$route['send'] = 'User_controller/sendMailGmail';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
