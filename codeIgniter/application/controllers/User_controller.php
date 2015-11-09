@@ -18,13 +18,13 @@ class User_controller extends CI_Controller {
 		return $this->load->view('User_controller/email');
 	}
 
-	public function sendMailGmail()
+	public function sendMailGmail($Email ,$Address,$Topic,$Description)
 	{
 
-		$this->email->from('alegonzalez21195@gmail.com');
-		$this->email->to("angiekarina31@gmail.com");
-		$this->email->subject('Bienvenido/a a uno-de-piera.com');
-		$this->email->message('<h2>Email enviado con codeigniter haciendo uso del smtp de gmail</h2><hr><br> Bienvenido al blog');		
+		$this->email->from($Email);
+		$this->email->to($Address);
+		$this->email->subject($Topic);
+		$this->email->message($Description);		
 		if($this->email->send())
 		{
 			echo 'Correo enviado';
@@ -38,6 +38,23 @@ class User_controller extends CI_Controller {
 		}
 
 	}
+
+	public function cronjob()
+	{
+		$data= $this->User_model->Salida();
+        //cargamos la vista para editar la información, pasandole dicha información.
+
+		foreach ($data as $row) 
+		{ 
+		
+				$this->sendMailGmail($row['Email'],$row['Address'],$row['Topic'],$row['Description']);
+		
+			
+		}
+
+
+	}
+
 }
 
 ?>
