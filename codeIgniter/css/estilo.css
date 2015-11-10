@@ -105,16 +105,16 @@ p{
 
 .date_footer ul li{
 	color: white;
-    padding-top: 2%;
-    margin-top: 2%;
+	padding-top: 2%;
+	margin-top: 2%;
 }
 .date_footer ul li a{
-text-decoration: none;
-color: white;
-background: transparent;
+	text-decoration: none;
+	color: white;
+	background: transparent;
 }
 .titule_footer{
-color: white;
+	color: white;
 }
 .email{
 	margin-top: 4%;
@@ -122,12 +122,31 @@ color: white;
 }
 #out,#write,#send{
 	color: white;
+	width: 100%!important;
 }
 
 .send
 {
-    margin-top: 40px;
-    left: 29px;
+	margin-top: 40px;
+	left: 29px;
 }
+#destinario,#asunto{
+	height: 48px;
+}
+.email_redactar{
+	margin-top: 3%;
+}
+.email_redactar span{
+	margin-top: 3%;
 
-
+}
+#texto{
+	height: 243px;
+	border-radius: 10px;
+	
+}
+#sending{
+	width: 38%;
+	margin-top: 4%;
+	height: 44px;
+}

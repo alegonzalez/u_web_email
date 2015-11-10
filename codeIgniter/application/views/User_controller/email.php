@@ -32,7 +32,27 @@
 					<section class="tab-content  menu">
 						<section  class="tab-pane active col-md-10 col-md-offset-1" id="salida">sdjfhskdljfhlskdf</section>
 						<section  class="tab-pane fade col-md-10 col-md-offset-1" id="enviados">Hola mundo</section>
-						<section  class="tab-pane fade col-md-10 col-md-offset-1" id="redactar">Entonces</section>
+						<section  class="tab-pane fade col-md-10 col-md-offset-1" id="redactar">
+							
+							<section class="input-group col-xs-12 col-sm-10 col-sm-offset-1 col-md-10  col-md-offset-1 email_redactar">
+								<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-envelope"></span></span>
+								<input type="text" class="form-control" id="destinario" placeholder="Destinario"  aria-describedby="basic-addon1">
+							</section>
+
+							<section class="input-group col-xs-12 col-sm-10 col-sm-offset-1 col-md-10  col-md-offset-1 email_redactar">
+								<span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-comment"></span></span>
+								<input type="text" class="form-control" id="asunto" placeholder="Asunto"  aria-describedby="basic-addon1">
+							</section>
+							<section class=" col-xs-12 col-sm-10 col-sm-offset-1 col-md-10  col-md-offset-1 email_redactar">
+								<span class="input-group-addon" id="basic-addon3"><img src="https://cdn4.iconfinder.com/data/icons/48-bubbles/48/15.Pencil-24.png" alt=""></span>
+								<textarea class="form-control" id="texto" rows="3"></textarea>
+<!--<span class="glyphicon glyphicon-pencil"></span>-->
+							</section>
+							<section class="col-md-6 col-md-offset-5">
+								<button type="submit" class="btn btn-primary" id="sending">Send</button>
+
+							</section>
+						</section>
 						
 					</section>
 
@@ -66,8 +86,7 @@
 	
 
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script src="<?php echo asset('assets/js/email.js') ?>"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js" ></script>
-
+	<script type="text/javascript" src="js/email.js"></script>
 </body>
 </html>
