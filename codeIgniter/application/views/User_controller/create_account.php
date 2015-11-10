@@ -18,7 +18,7 @@
 		<section class="row">
 			<section class="col-md-5 col-md-offset-4">
 				
-				<form  class="form_create_email form-inline"  name="Photo" method="POST" action="" enctype =  "multipart/form-data">
+				<form  class="form_create_email form-inline"  name="Photo" method="POST" action="<?php echo base_url('create'); ?>" enctype =  "multipart/form-data">
 
 
 					<section class="custom-input-file img-circle">
@@ -66,7 +66,7 @@
 					<span class="input-group-addon" >
 						<span class="glyphicon glyphicon-asterisk"></span>
 					</span>
-					<input type="password"  id="verify_password" class="form-control " placeholder="Verify Password" aria-describedby="basic-addon1">
+					<input type="password" name="repitPassword"  id="verify_password" class="form-control " placeholder="Verify Password" aria-describedby="basic-addon1">
 				</section>
 				<br>
 				<!-- Indicates caution should be taken with this action -->
