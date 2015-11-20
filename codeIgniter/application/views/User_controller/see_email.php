@@ -21,33 +21,36 @@
 				<div class="panel-body">
 					<label >ADDRESS : </label>
 
-						<?php 
+					<?php 
 
-						echo $correo_ver[0]->Address;
+					echo $correo_ver[0]->Address;
 
-						?>
+					?>
 
-						<br>
+					<br>
 
-						<label>TOPIC : </label>
+					<label>TOPIC : </label>
 
-						<?php 
+					<?php 
 
-						echo $correo_ver[0]->Topic;
+					echo $correo_ver[0]->Topic;
 
-						?>
+					?>
 
-						<br>
-						<label>DESCRIPTION : </label>
+					<br>
+					<label>DESCRIPTION : </label>
 
-						<?php echo $correo_ver[0]->Description;?>
+					<?php echo $correo_ver[0]->Description;?>
 				</div>
 			</div>
 
-		</div>
+			<form action="<?php echo base_url('getEmail'); ?>" method="post">
+				<input type="submit" >
+			</form>
 
+
+		</section>
 	</section>
-</section>
 </section>
 </body>
 </html>

@@ -85,7 +85,7 @@ function loadDate(){
 </script>
 <body>
 
-	<section class="container">z
+	<section class="container">
 		<section class="row">
 			<div class="dropdown">
 				<button class="btn btn-default dropdown-toggle" id="setting" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >

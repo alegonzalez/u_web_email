@@ -18,7 +18,6 @@ $(document).ready(function(){
 		document.getElementById('write').setAttribute('style','background:#B8860B;');
 		document.getElementById('send').setAttribute('style','background:transparent;');
 		document.getElementById('out').setAttribute('style','background:transparent;');
-		
-		document.getElementById('deleteImage').setAttribute('style','display:none;');		
+			
 	});
 });

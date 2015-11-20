@@ -46,13 +46,11 @@ class User_controller extends CI_Controller {
 
 	}
 
-
-
-
 	public function viewCreateAccount(){
 
 		return  $this->load->view('User_controller/create_account');
 	}
+
 
 	public function email()
 	{
@@ -62,22 +60,25 @@ class User_controller extends CI_Controller {
 
 		$this->load->model('User_model');
 		$result = $this->User_model->validateLogin($email,$password);
-		if($result==null){
-			$this->load->view('User_controller/login');
 
-		}else {
+		if($result==null){
+			
+			// $this->load->view('User_controller/login');
+			redirect(base_url("login"));
+
+		}else 
+
+		{
 			$result['date_send']= $this->User_model->ObtenerEnviados($result['id']);
 			$result['date_Salida']= $this->User_model->ObtenerPendientes($result['id']);
 			$_SESSION["session"] = $result;
 			$result['photo'] = "ImageUser/" . $result['photo'];
 			$this->load->view('User_controller/email',$result);
+			//redirect('User_controller/email', 'refresh',$result);
 			//hay que parsale el id del user de ese momento
 
 		}
 
-
-		
-		
 	}
 
 //Upload of the image
@@ -331,7 +332,7 @@ public function accion()
 
 		$Id= $_POST['delete'];
 		$this->User_model->delete($Id);
-		$this->email();
+		redirect(base_url("Email"));
 
 
 	}else if(isset($_POST['delete_all'])) 
@@ -344,7 +345,7 @@ public function accion()
 
 		};
 
-		$this->email();
+		redirect(base_url("Email"));
 
 	} else if(isset($_POST['update'])) 
 	{ 
@@ -357,18 +358,26 @@ public function accion()
 		$data['send'] = $this->User_model->obtenerId($Id);
         //cargamos la vista para editar la información, pasandole dicha información.
 
-
 		$this->load->view('User_controller/edit_Email', $data);
 	} 
 
 }
 
 
+public function btnSeeEmail()
+{
+
+	$result['date_send']= $this->User_model->ObtenerEnviados($_SESSION['session']['id']);
+	$result['date_Salida']= $this->User_model->ObtenerPendientes($_SESSION['session']['id']);
+	return $this->load->view('User_controller/email',$result);
+
+}
+
 public function descriptionEmail($product_id){
 
 	$data['correo_ver'] = $this->User_model->obtenerId($product_id);
         //cargamos la vista para editar la información, pasandole dicha información
-
+	
 	return $this->load->view('User_controller/see_email',$data);
 }
 
@@ -402,7 +411,7 @@ public function btnUpdate()
 		//Tiene que enviarse el msj a donde le pertenece
 	$this->sendMailGmail($user[0]['UserName'],$user[0]['Email'],$data['Address'],$data['Topic'],$data['Description']);
        //volvemos a cargar la primera vista
-	return $this->Email();
+	return redirect(base_url("Email"));
 
 
 

@@ -9,9 +9,6 @@
 </head>
 <body>
 
-
-	
-
 	<section class="container">
 		<section class="row">
 			<section class="col-xs-12 col-sm-6 col-sm-offset-1 col-md-5 col-md-offset-4">

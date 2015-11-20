@@ -1,7 +1,8 @@
 
 body
 {
-	background-image: url(http://www.photoshop-designs.com/mlaqr/tutoriales/31227/2.gif);
+	/*background-image: url(http://www.photoshop-designs.com/mlaqr/tutoriales/31227/2.gif);*/
+	background: white;
 	background-repeat: no-repeat;
 	background-size: cover;
 	-moz-background-size: cover;
