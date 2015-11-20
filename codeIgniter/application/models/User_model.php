@@ -69,11 +69,11 @@ class User_model extends CI_Model {
 //Obtiene todos los enviados
 	public function ObtenerEnviados($user)
 	{
-		$user="207460543";
+	
 		$this->db->select('users.* , send_email.Id_send,send_email.Address , send_email.Topic ,send_email.Description');
 		$this->db->from('users');
-		$this->db->join('send_email' , 'users.id= 207460543', 'left');
-		$this->db->where('send_email.State="Enviado" and users.id = 207460543 and send_email.User= 207460543');
+		$this->db->join('send_email' , "users.id= $user", 'left');
+		$this->db->where("send_email.State='Enviado' and users.id = $user and send_email.User= $user");
 
 		$enviado=$this->db->get();
 
@@ -84,11 +84,11 @@ class User_model extends CI_Model {
 	//Obtiene todos los enviados
 	public function ObtenerPendientes($user)
 	{
-		$user="207460543";
+		
 		$this->db->select('users.* ,send_email.Id_send,send_email.Address , send_email.Topic ,send_email.Description');
 		$this->db->from('users');
-		$this->db->join('send_email' , 'users.id= 207460543', 'left');
-		$this->db->where('send_email.State="Pendiente" and users.id= 207460543 and send_email.User= 207460543');
+		$this->db->join('send_email' , "users.id= $user", 'left');
+		$this->db->where("send_email.State='Pendiente' and users.id= $user and send_email.User= $user");
 
 		$enviado=$this->db->get();
 

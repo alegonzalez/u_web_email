@@ -66,8 +66,8 @@ class User_controller extends CI_Controller {
 			$this->load->view('User_controller/login');
 
 		}else {
-			$result['date_send']= $this->User_model->ObtenerEnviados("hola");
-			$result['date_Salida']= $this->User_model->ObtenerPendientes("hola");
+			$result['date_send']= $this->User_model->ObtenerEnviados($result['id']);
+			$result['date_Salida']= $this->User_model->ObtenerPendientes($result['id']);
 			$_SESSION["session"] = $result;
 			$result['photo'] = "ImageUser/" . $result['photo'];
 			$this->load->view('User_controller/email',$result);
