@@ -24,14 +24,14 @@
 					
 					<section class="input-group col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 space_login col-md-offset-1">
 						<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-envelope"></span></span>
-						<input type="text" class="form-control" id="email" placeholder="Email"  aria-describedby="basic-addon1">
+						<input type="text" class="form-control" id="email" name="email" placeholder="Email"  aria-describedby="basic-addon1">
 					</section>
 
 
 					<br>
 					<section class="input-group col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 space_login col-md-offset-1">
 						<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-lock"></span></span>
-						<input type="text" class="form-control" id="password"placeholder="Password" aria-describedby="basic-addon1">
+						<input type="text" class="form-control" name="password" id="password"placeholder="Password" aria-describedby="basic-addon1">
 					</section>
 					<section class="col-xs-13 col-sm-12 col-sm-offset-3 col-md-12  col-md-offset-3 space_login">
 
@@ -67,8 +67,7 @@
 
 	
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script type="text/javascript" src="js/create_account.js"></script>
-
+	
 
 </body>
 </html>
