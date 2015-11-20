@@ -89,7 +89,7 @@ body
 #salida,#enviados,#messages,#redactar{
 	background: white;
 	color: black;
-	height: 560px!important;
+	height: 560px;
 	margin-top: 4%;
 	border-radius: 9px;
 }
@@ -149,39 +149,4 @@ p{
 	width: 38%;
 	margin-top: 4%;
 	height: 44px;
-}
-
-
-.scroll
-{
-	height: 10px !important; overflow-y:scroll;
-}
-.area_see{
-	height: 335px!important;
-	border-radius: 10px;
-}
-.panel-body {
-	padding: 15px;
-	height: 381px!important;
-}
-.description_email{
-    margin-top: 10%;
-}
-.panel-default>.panel-heading span{
-	    margin-left: 40%;
-}
-
-.btn_delete
-{
-	margin-top: 10px;
-	    height: 36px;
-
-}
-
-.hola
-{
-	margin-top: 106px;
-	font-family: "Times New Roman", Georgia, Serif;
-	 font-style: oblique;
-	 font-size: 40px;
 }

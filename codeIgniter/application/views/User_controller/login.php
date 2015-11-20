@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Login</title>
-	<meta charset="UTF-8">
+
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/estilo.css">	
 
@@ -16,7 +16,7 @@
 		<section class="row">
 			<section class="col-xs-12 col-sm-6 col-sm-offset-1 col-md-5 col-md-offset-4">
 				
-				
+			
 				<form class="form-inline form_login" action="<?php echo base_url('Email'); ?>" method="post" enctype="multipart/form-data">
 					<section class="col-sm-12 col-sm-offset-3  col-md-offset-3 space_login">
 						<h3><span class="glyphicon glyphicon-envelope"></span>UwebEMAIL</h3>	
