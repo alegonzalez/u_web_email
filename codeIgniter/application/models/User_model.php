@@ -3,6 +3,7 @@ class User_model extends CI_Model {
 
 	public function __construct() {
 		parent::__construct();
+		$this->load->library('encrypt');
 	}
 
 
@@ -114,12 +115,108 @@ class User_model extends CI_Model {
 	}
 
 
-	function delete($Id)
+	public function delete($Id)
 	{
 		$this->db->where('Id_send', $Id);
 		$this->db->delete('send_email');
 
 
+	}
+	public function validateUser($user){
+
+		$sql = "SELECT * FROM users WHERE username = ?";
+		$query = $this->db->query($sql, array($user));
+		return $query->result();
+	}
+
+
+//Insert  the account  the user
+	public function insertAccount($user,$email,$password){
+		$key = 'emailPassword';
+		$pass = $this->encrypt->encode($password,$key);
+		$this->db->select_max('Id');
+		$query = $this->db->get('users'); 
+		$id= $query->result_array(); 
+		$this->db->set('Id',$id[0]['Id']+1);
+		$this->db->set('UserName',$user);
+		$this->db->set('Photo',null);
+		$this->db->set('Email',$email);
+		$this->db->set('Password',$pass);
+
+		return $this->db->insert('users');
+
+	}
+
+//Validate the login of the user
+	public function validateLogin($email,$password){
+		$date = [];
+		$query = $this->db->get('users');
+		$key = 'emailPassword';
+
+		foreach ($query->result() as $row)
+		{
+
+			$pass = $this->encrypt->decode($row->Password, $key);	
+
+			if($row->Email==$email&&$password==$pass)
+			{
+				
+				$date['id'] = $row->Id;
+				$date['photo'] = $row->Photo;
+				$date['username'] = $row->UserName;
+
+				return $date;
+			}
+
+
+		}
+
+		return $date;
+
+	}
+
+//verification of password
+	public function verificationPassword($imagen,$user,$lastPassword,$newPassword,$id){
+		$key = 'emailPassword';
+		$sql = "SELECT * FROM users WHERE id = ?";
+		$query = $this->db->query($sql, array($id));
+		$result = $query->result();
+		
+		$pass = $this->encrypt->decode($result[0]->Password, $key);
+		if(sizeof($result)>0 && $pass == $lastPassword){
+			$this->editUser($imagen,$user,$newPassword,$id);
+			return true;
+		}else{
+			echo "Hola mundo";
+			return false;
+		}
+	}
+//Edit user
+	public function editUser($imagen,$user,$newPassword,$id){
+		$key = 'emailPassword';
+		$pass = $this->encrypt->encode($newPassword,$key);
+		if($newPassword == ""){
+			$data = array(
+				'UserName' => $user,
+				'Photo' => $imagen,
+				);
+
+			$this->db->where('Id', $id);
+			$this->db->update('users', $data);
+
+		}else{
+			$data = array(
+				'UserName' => $user,
+				'Photo' => $imagen,
+				'Password' => $pass
+				);
+
+			$this->db->where('Id', $id);
+			$this->db->update('users', $data);
+
+		}
+
+		return true;
 	}
 
 
