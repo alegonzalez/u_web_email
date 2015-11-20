@@ -4,12 +4,98 @@
 	<title>Email</title>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	<link rel="stylesheet" href="css/estilo.css">
+
 </head>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.btn-edit').click(function(){
+		editAccount();
+
+	});
+
+});
+
+function editAccount() {
+
+	var request = $.ajax({
+		url: "<?php echo base_url('editUser'); ?>",
+		method: "POST",
+		data: { "image" : $('#files').val(), "username" : $('#name').val(),"last_password" : $('#password').val(),"newpassword": $('#newpassword').val()}
+	});
+
+	request.done(function(msg) {
+	debugger;
+		if(msg.status == 'error'){
+			
+			$(".alert-danger").show();
+			$('#messageErrorEdit').text(msg.message);
+
+		}else if(msg.status == 'correct'){
+			
+			$(".alert-danger").show();
+			$('#messageErrorEdit').text(msg.message);
+			//$(".alert-danger").hide();
+
+		}
+
+	});
+
+	request.fail(function( jqXHR, textStatus ) {
+		alert( "Request failed: " + textStatus );
+
+
+
+	});	
+
+}
+function loadDate(){
+	$('#messageErrorEdit').text('Debes de colocar el password actual,para poder efectuar su edit');
+	$('.alert-danger').show();
+	$('.alert-danger').delay(8000).hide(600);
+
+	var request = $.ajax({
+		url: "<?php echo base_url('editLoadUser'); ?>",
+		method: "POST",
+
+	});
+	request.done(function(msg) {
+
+
+		if(msg.status == 'error'){
+
+			$(".alert-danger").show();
+			$('#messageErrorEdit').text("Los datos no se cargaron,por favor intente nuevamente");
+
+		}else{
+			$("#name").val(msg.username);
+		}
+
+	});
+
+	request.fail(function( jqXHR, textStatus ) {
+		alert( "Request failed: " + textStatus );
+
+
+
+	});	
+}
+
+</script>
 <body>
 
 	<section class="container">z
 		<section class="row">
+			<div class="dropdown">
+				<button class="btn btn-default dropdown-toggle" id="setting" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >
+					<img src="https://cdn0.iconfinder.com/data/icons/users-icon/100/Profile_Settings-32.png">
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1" >
+					<li><a href="#edit" onclick="loadDate();" data-toggle="modal"><span class="glyphicon glyphicon-pencil icono"></span> Edit user</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-remove-circle icono"></span>Exit</a></li>
+				</ul>
+			</div>
 			<section class="col-md-5 col-md-offset-3">
 				<img src="https://cdn4.iconfinder.com/data/icons/e-commerce-icon-set/48/Username_2-128.png"  class="img-circle thumb">
 				<p class="col-md-12 col-md-offset-4 ">Alejandro</p>
@@ -257,34 +343,87 @@
 
 					</section>
 
+					<div class="modal fade" id="edit">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h2 class="modal-title  titule_edit"><span class="glyphicon glyphicon-pencil"></span>Edit Account</h2>
+								</div>
+								<div class="alert alert-danger"  role="alert">
+									<p id="messageErrorEdit"></p>
+								</div>
+								<div class="modal-body">
+									<section class="custom-input-file img-circle">
 
-			<footer>
+										<input type="file" size="1" id="files"  name="files[]" class="input-file" />
 
-				<section class="container-fluid">
-					<section class="row">
-						<section class="col-md-12 footer">
-							<section class="col-md-4 col-md-offset-5 titule_footer">
-								<h3><span class="glyphicon glyphicon-envelope"></span>UwebEMAIL</h3>
+										<br>
+										<output id="list" name="Photo">
+											<img src="https://cdn4.iconfinder.com/data/icons/e-commerce-icon-set/48/Username_2-128.png" name="img" id="Photo" class="img-circle thumb">
+										</output>
 
+									</section>
+
+									<section class="input_create_email input-group col-md-8 col-md-offset-2">
+
+										<span class="input-group-addon" >
+											<span class="glyphicon glyphicon-user"></span>
+										</span>
+
+
+										<input type="text" id="name"  name="UserName" class="form-control " placeholder="User Name" aria-describedby="basic-addon1">
+									</a>
+
+								</section>
+								<section class="input_create_email input-group col-md-8 col-md-offset-2">
+									<span class="input-group-addon" >
+										<span class="glyphicon glyphicon-asterisk"></span>
+									</span>
+									<input type="password" id="password" name="Password" class="form-control " placeholder="Last password" aria-describedby="basic-addon1">
+								</section>
+
+								<section class="input_create_email input-group col-md-8 col-md-offset-2">
+									<span class="input-group-addon" >
+										<span class="glyphicon glyphicon-asterisk"></span>
+									</span>
+									<input type="password" id="newpassword" name="newPassword" class="form-control " placeholder="New password" aria-describedby="basic-addon1">
+								</section>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" onclick="editAccount();" class="btn btn-success btn-lg btn-edit">Edit</button>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+				<footer>
+
+					<section class="container-fluid">
+						<section class="row">
+							<section class="col-md-12 footer">
+								<section class="col-md-4 col-md-offset-5 titule_footer">
+									<h3><span class="glyphicon glyphicon-envelope"></span>UwebEMAIL</h3>
+
+								</section>
+
+
+								<section class="col-md-4 col-md-offset-4 date_footer ">
+									<ul>
+										<li>Made by   <a href="">Alejandro Alvarado</a><a href="">                Angie González</a> </li>
+										<li>Contact <a href="">88888888</a></li>
+
+									</ul>
+
+								</section>
+								-
 							</section>
-
-
-							<section class="col-md-4 col-md-offset-4 date_footer ">
-								<ul>
-									<li>Made by   <a href="">Alejandro Alvarado</a><a href="">                Angie González</a> </li>
-									<li>Contact <a href="">88888888</a></li>
-
-								</ul>
-
-							</section>
-							-
 						</section>
 					</section>
-				</section>
-			</footer>
-	
-		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
-		<script type="text/javascript" src="js/email.js"></script>
-	</body>
-	</html>
+				</footer>
+
+				<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+				<script type="text/javascript" src="js/bootstrap.min.js" ></script>
+				<script type="text/javascript" src="js/email.js"></script>
+			</body>
+			</html>
