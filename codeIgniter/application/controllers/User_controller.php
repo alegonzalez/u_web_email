@@ -1,6 +1,8 @@
 <?php
 
+
 class User_controller extends CI_Controller {
+
 
 	
 	public function index()
@@ -15,14 +17,20 @@ class User_controller extends CI_Controller {
 
 	public function email()
 	{
-		return $this->load->view('User_controller/email');
+		//hay que parsale el id del user de ese momento
+		$data['date_Salida']= $this->User_model->ObtenerPendientes("hola");
+		$data['date_send']= $this->User_model->ObtenerEnviados("hola");
+		return $this->load->view('User_controller/email',$data);
 	}
+
 //Upload of the image
 	public function createAccount(){
 		$date = [];
 		
 		$date = $_FILES['files'];
 		
+        var_dump($date);
+
 		$cadena ;
 		$file_ary = array();
 		$file_count = count($date['name']);
@@ -36,7 +44,7 @@ class User_controller extends CI_Controller {
 
 			}
 		}
-
+echo "Hola ".$cadena[0]['tmp_name'];
 		$direccion = 'ImageUser';
 		$nombre_archivo = $cadena[0]['name']; 
 		$tipo_archivo = $cadena[0]['type']; 
@@ -45,6 +53,7 @@ class User_controller extends CI_Controller {
 			echo "La extensión o el tamaño de los archivos no es correcta. <br><br><table><tr><td><li>Se permiten archivos .gif o .jpg<br><li>se permiten archivos de 100 Kb máximo.</td></tr></table>"; 
 		}else{ 
 			if (move_uploaded_file($cadena[0]['tmp_name'],"$direccion/$nombre_archivo")){ 
+
 				echo "El archivo ha sido cargado correctamente."; 
 			}else{ 
 				echo "Ocurrió algún error al subir el fichero. No pudo guardarse."; 
@@ -55,10 +64,10 @@ class User_controller extends CI_Controller {
 		$date['password'] = $this->input->post('Password');
 		$date['repitPassword'] = $this->input->post('repitPassword');
 	}
-	public function sendMailGmail($Email ,$Address,$Topic,$Description)
+	public function sendMailGmail($username,$Email ,$Address,$Topic,$Description)
 	{
 
-		$this->email->from($Email);
+		$this->email->from($Email,$username);
 		$this->email->to($Address);
 		$this->email->subject($Topic);
 		$this->email->message($Description);		
@@ -78,16 +87,105 @@ class User_controller extends CI_Controller {
 
 	public function cronjob()
 	{
-		$data= $this->User_model->Salida();
+
+
+		$data= $this->User_model->cronjob();
         //cargamos la vista para editar la información, pasandole dicha información.
+
 
 		foreach ($data as $row) 
 		{ 
 
-			$this->sendMailGmail($row['Email'],$row['Address'],$row['Topic'],$row['Description']);
-
+			$this->sendMailGmail($row['UserName'],$row['Email'],$row['Address'],$row['Topic'],$row['Description']);
+			echo "entro";
 			
 		}
+
+		$this->User_model->actualizar_salida($data);
+
+
+	}
+
+	public function accion()
+	{
+		if(isset($_POST['delete'])) 
+		{
+
+			$Id= $_POST['delete'];
+			$this->User_model->delete($Id);
+			$this->email();
+			
+
+		}else if(isset($_POST['delete_all'])) 
+		{
+
+			foreach($_POST['checkbox'] as $id){
+
+				$this->User_model->delete($id);
+
+				
+			};
+
+			$this->email();
+
+		} else if(isset($_POST['update'])) 
+		{ 
+
+		 //cargamos el modelo y obtenemos la información del student seleccionado.
+			$this->load->model('User_model');
+
+			$Id= $_POST['update'];
+
+			$data['send'] = $this->User_model->obtenerId($Id);
+        //cargamos la vista para editar la información, pasandole dicha información.
+
+			
+			$this->load->view('User_controller/edit_Email', $data);
+		} 
+
+	}
+
+
+	public function descriptionEmail($product_id){
+
+		$data['correo_ver'] = $this->User_model->obtenerId($product_id);
+        //cargamos la vista para editar la información, pasandole dicha información
+
+		return $this->load->view('User_controller/see_email',$data);
+	}
+
+
+
+	//obtienes los datos de los input para actualizar el msj Pendiente
+
+	public function btnUpdate()
+	{
+		 //recogemos los datos por POST
+		//$this->input->post->("id");
+		//$this ->db-> get_where();
+		///Como lo hice aqui es con el framework
+
+		$data['Id'] = $_POST['id'];
+		$data['Address'] = $_POST['address'];
+		$data['Topic'] = $_POST['topic'];
+		$data['Description'] = $_POST['description'];
+
+		$data['User'] = $_POST['user'];
+
+		$user= $this->User_model->user($data['User']);
+
+
+		//Validar si existe el correo primero que todo
+
+       //cargamos el modelo y llamamos a la función update()
+		$this->load->model('User_model');
+		$this->User_model->update($data);
+
+		//Tiene que enviarse el msj a donde le pertenece
+		$this->sendMailGmail($user[0]['UserName'],$user[0]['Email'],$data['Address'],$data['Topic'],$data['Description']);
+       //volvemos a cargar la primera vista
+		return $this->Email();
+
 
 
 	}
