@@ -116,11 +116,12 @@ move_uploaded_file($cadena[0]['tmp_name'],"$direccion/$nombre_archivo");
 
 */
 $direccion = 'ImageUser';
-move_uploaded_file($_SESSION["photo"][2],"$direccion/" . $_SESSION["photo"][0]);
+//move_uploaded_file($_SESSION["photo"][2],"$direccion/" . $_SESSION["photo"][0]);
 //echo $_SESSION["photo"][2] . " " . "$direccion/" . $_SESSION["photo"][0];
 $this->load->model('User_model');
 $this->User_model->insertAccount($_SESSION["user"],$_SESSION["email"],$_SESSION["password"]);	
 $this->load->view('User_controller/login');
+redirect(base_url('login'));
 //$this->User_model->insertAccount($account,$nombre_archivo);	
 
 
@@ -135,7 +136,7 @@ public function validateCamp(){
 	$account['password'] = $this->input->post('password');
 	$account['repitPassword'] = $this->input->post('repitPassword');
 	$this->load->model('User_model');
-	$result = $this->User_model->validateUser($account['username']);
+	$result = $this->User_model->validateUser($account['username'],$account['email']);
 	if ((filter_var($account['email'],FILTER_VALIDATE_EMAIL))){
 
 	}else{
@@ -144,9 +145,14 @@ public function validateCamp(){
 		return false;
 	}
 
-	if(sizeof($result) > 0){
+	
+	if($result[0]->UserName == $account['username']){
 		header('Content-Type: application/json');
 		echo json_encode( array('status' => 'error','message' => 'Ya existe un usuario con el nombre: ' .$result[0]->UserName));
+		return false;
+	}else if($result[0]->Email == $account['email']){
+		header('Content-Type: application/json');
+		echo json_encode( array('status' => 'error','message' => 'El correo ya ha sido utilizado, por favor intente otro correo'));
 		return false;
 	}else if($account['username']==""){
 		header('Content-Type: application/json');
