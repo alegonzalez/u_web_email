@@ -130,7 +130,11 @@ class User_model extends CI_Model {
 
 	}
 	public function validateUser($user,$email){
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> origin/master
 		$sql = "SELECT * FROM users WHERE username = ? 	OR Email = ?";
 		$query = $this->db->query($sql, array($user,$email));
 		return $query->result();

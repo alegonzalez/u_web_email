@@ -72,13 +72,19 @@
     		$('.window').attr({
     			'id': 'create'
     		});
+<<<<<<< HEAD
     		$('window').show();
+=======
+>>>>>>> origin/master
     		
 
 
     	}else{
+<<<<<<< HEAD
     		alert("hola");
     		debugger;
+=======
+>>>>>>> origin/master
     		$('#myModalLabel').text('Please, see in your mail your verification code');
     		$('#codeConfirm').show();
     		$('#back').attr({
