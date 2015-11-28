@@ -51,13 +51,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['login'] = 'User_controller/index';
 $route['create_account'] = 'User_controller/viewCreateAccount';
-
 $route['Email']="User_controller/email";
-
 $route['getEmail']="User_controller/btnSeeEmail";
-
-
-
 $route['Enviados']="User_controller/correosEnviados";
 $route['send'] = 'User_controller/sendMailGmail';
 $route['create'] = 'User_controller/checkMail';
@@ -66,6 +61,9 @@ $route['verification'] = 'User_controller/verificationRandom';
 $route['editUser'] = 'User_controller/editUser';
 $route['editLoadUser'] = 'User_controller/loadDate';
 $route['accion']="User_controller/accion";
+$route['destination'] = 'User_controller/emailDestination';
 $route['edit']="User_controller/btnUpdate";
+$route['redact']="User_controller/redact";
+$route['closeSession']="User_controller/closeSession";
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

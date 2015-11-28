@@ -11,7 +11,17 @@
 	<link rel="stylesheet" type="text/css" href="css/estilo.css">	
 
 	<script type="text/javascript">
+	$(document).ready(function(){
+
+		$('#btn_create_Email').click(function(){
+			createAccount();
+			
+		});
+	});
+
 	function createAccount() {
+
+
 		$('#codeConfirm').show();
 		$('#confirm').show();
 		$('#myModalLabel').text('Please, see in your mail your verification code');
@@ -20,79 +30,80 @@
 			'class': 'btn btn-default message'
 
 		});
-		
+		var photo = [];
 		var fileExtension = "";
-    //función que observa los cambios del campo file y obtiene información
-    
-
-
-    
-
-
         //obtenemos un array con los datos del archivo
         var file = $("#files")[0].files[0];
-        console.log(file);
-        //obtenemos el nombre del archivo
-        var fileName = file.name;
+        if(file != null){
+         //obtenemos el nombre del archivo
+         var fileName = file.name;
         //obtenemos la extensión del archivo
         fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
         //obtenemos el tamaño del archivo
         var fileSize = file.size;
         //obtenemos el tipo de archivo image/png ejemplo
         var fileType = file.type;
-        //mensaje con la información del archivo
-        var n = file.tmp_name;
-        console.log(n);
-        var photo = [fileName,fileSize,fileType,fileExtension];
         
-        var request = $.ajax({
-        	url: "<?php echo base_url('create'); ?>",
-        	method: "POST",
-        	data: { "image" : photo, "username" : $('#name').val(),"Email" : $('#create_email').val(),"password" : $('#password').val(),"repitPassword": $('#verify_password').val()}
-        });
-
-        request.done(function(msg) {
-
-
-        	if(msg.status === 'error'){
-        		$('#codeConfirm').hide();
-        		$('#myModalLabel').text(msg.message);
-        		$('#back').attr({
-        			'style': 'margin-left: 39%',
-        			'class': 'btn btn-primary'
-
-        		});
-        		$('#confirm').hide();
-        		$('.window').attr({
-        			'id': 'create'
-        		});
-
-        	}else{
-        		$('#myModalLabel').text('Please, see in your mail your verification code');
-        		$('#codeConfirm').show();
-        		$('#back').attr({
-        			'class': 'btn btn-default message'
-
-        		});
-        		$('.window').attr({
-        			'id': 'create'
-        		});
-        		$('#confirm').show();
-
-        	}
-
-        });
-
-        request.fail(function( jqXHR, textStatus ) {
-        	alert( "Request failed: " + textStatus );
-
-
-
-        });	
-
+        photo = [fileName,fileSize,fileType,fileExtension];
+        
+    }else{
+    	photo = "";
     }
 
-    </script>
+
+    var request = $.ajax({
+    	url: "<?php echo base_url('create'); ?>",
+    	method: "POST",
+    	data: { "image" : photo, "username" : $('#name').val(),"Email" : $('#create_email').val(),"password" : $('#password').val(),"repitPassword": $('#verify_password').val()}
+    });
+
+    request.done(function(msg) {
+
+
+    	if(msg.status === 'error'){
+    		$('#codeConfirm').hide();
+    		$('#myModalLabel').text(msg.message);
+    		$('#back').attr({
+    			'style': 'margin-left: 39%',
+    			'class': 'btn btn-primary'
+
+    		});
+    		$('#confirm').hide();
+    		$('.window').attr({
+    			'id': 'create'
+    		});
+    		$('window').show();
+    		
+
+
+    	}else{
+    		alert("hola");
+    		debugger;
+    		$('#myModalLabel').text('Please, see in your mail your verification code');
+    		$('#codeConfirm').show();
+    		$('#back').attr({
+    			'class': 'btn btn-default message'
+
+    		});
+    		$('.window').attr({
+    			'id': 'create'
+    		});
+    		$('#confirm').show();
+
+    	}
+
+    });
+
+    request.fail(function( jqXHR, textStatus ) {
+    	alert( "Request failed: " + textStatus );
+
+
+
+    });	
+
+}
+
+</script>
 </head>
 <body>
 
@@ -155,7 +166,7 @@
 					</section>
 					<br>
 					<!-- Indicates caution should be taken with this action -->
-					<button type="button" class=" col-md-4 col-md-offset-3" id="btn_create_Email" data-toggle="modal" data-target="#create" onclick="createAccount();">Create Email</button>
+					<button type="button" class=" col-md-4 col-md-offset-3" id="btn_create_Email" data-toggle="modal" data-target="#create">Create Email</button>
 
 				</form>
 				

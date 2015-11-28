@@ -116,11 +116,12 @@ move_uploaded_file($cadena[0]['tmp_name'],"$direccion/$nombre_archivo");
 
 */
 $direccion = 'ImageUser';
-move_uploaded_file($_SESSION["photo"][2],"$direccion/" . $_SESSION["photo"][0]);
+//move_uploaded_file($_SESSION["photo"][2],"$direccion/" . $_SESSION["photo"][0]);
 //echo $_SESSION["photo"][2] . " " . "$direccion/" . $_SESSION["photo"][0];
 $this->load->model('User_model');
 $this->User_model->insertAccount($_SESSION["user"],$_SESSION["email"],$_SESSION["password"]);	
 $this->load->view('User_controller/login');
+redirect(base_url('login'));
 //$this->User_model->insertAccount($account,$nombre_archivo);	
 
 
@@ -135,7 +136,7 @@ public function validateCamp(){
 	$account['password'] = $this->input->post('password');
 	$account['repitPassword'] = $this->input->post('repitPassword');
 	$this->load->model('User_model');
-	$result = $this->User_model->validateUser($account['username']);
+	$result = $this->User_model->validateUser($account['username'],$account['email']);
 	if ((filter_var($account['email'],FILTER_VALIDATE_EMAIL))){
 
 	}else{
@@ -144,9 +145,14 @@ public function validateCamp(){
 		return false;
 	}
 
-	if(sizeof($result) > 0){
+	
+	if($result[0]->UserName == $account['username']){
 		header('Content-Type: application/json');
 		echo json_encode( array('status' => 'error','message' => 'Ya existe un usuario con el nombre: ' .$result[0]->UserName));
+		return false;
+	}else if($result[0]->Email == $account['email']){
+		header('Content-Type: application/json');
+		echo json_encode( array('status' => 'error','message' => 'El correo ya ha sido utilizado, por favor intente otro correo'));
 		return false;
 	}else if($account['username']==""){
 		header('Content-Type: application/json');
@@ -316,7 +322,7 @@ public function cronjob()
 	{ 
 
 		$this->sendMailGmail($row['UserName'],$row['Email'],$row['Address'],$row['Topic'],$row['Description']);
-		echo "entro";
+		
 
 	}
 
@@ -332,7 +338,7 @@ public function accion()
 
 		$Id= $_POST['delete'];
 		$this->User_model->delete($Id);
-		redirect(base_url("Email"));
+		redirect(base_url("getEmail"));
 
 
 	}else if(isset($_POST['delete_all'])) 
@@ -345,7 +351,7 @@ public function accion()
 
 		};
 
-		redirect(base_url("Email"));
+		redirect(base_url("getEmail"));
 
 	} else if(isset($_POST['update'])) 
 	{ 
@@ -411,10 +417,50 @@ public function btnUpdate()
 		//Tiene que enviarse el msj a donde le pertenece
 	$this->sendMailGmail($user[0]['UserName'],$user[0]['Email'],$data['Address'],$data['Topic'],$data['Description']);
        //volvemos a cargar la primera vista
-	return redirect(base_url("Email"));
+	redirect(base_url("getEmail"));
 
 
 
+}
+public function emailDestination(){
+
+	$email = $this->input->post('destinario');
+	
+	if ((filter_var($email,FILTER_VALIDATE_EMAIL))){
+		header('Content-Type: application/json');
+		echo json_encode( array('status' => 'correct','message' => 'El correo escrito esta correcto ' . $email));
+	}else{
+		
+		header('Content-Type: application/json');
+		echo json_encode( array('status' => 'error','message' => 'El correo escrito esta mal' . $email));
+		return false;
+	}
+}
+
+public function redact(){
+
+	$destinario = $this->input->post('destinario');
+	$asunto = $this->input->post('asunto');
+	$description = $this->input->post('description');
+
+
+	foreach ($destinario as $row) {
+		if($row != ""){
+			$this->User_model->update_pendient($row,$asunto,$description,$_SESSION['session']['id']);	
+		}
+		
+	}
+
+	redirect(base_url("getEmail"));
+
+}
+//close session
+public function closeSession(){
+	$_SESSION["user"]="";
+	$_SESSION["password"]="";
+	$_SESSION["email"]="";
+	$_SESSION["session"]="";
+	redirect(base_url("login"));
 }
 
 }

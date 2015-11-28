@@ -34,7 +34,14 @@ class User_model extends CI_Model {
 		}
 
 	}
+ //Actualiza el estado pendiente a estado enviado
+	public function update_pendient($destinario,$asunto,$description,$id_User)
+	{
+		$data = array('Address' => $destinario, 'Topic' => $asunto, 'Description' => $description,'User' => $id_User,'State' => "Pendiente");
 
+		$this->db->insert('send_email',$data);
+
+	}
 //obtiene datos del user
 	function user($user)
 	{
@@ -69,7 +76,7 @@ class User_model extends CI_Model {
 //Obtiene todos los enviados
 	public function ObtenerEnviados($user)
 	{
-	
+
 		$this->db->select('users.* , send_email.Id_send,send_email.Address , send_email.Topic ,send_email.Description');
 		$this->db->from('users');
 		$this->db->join('send_email' , "users.id= $user", 'left');
@@ -122,10 +129,10 @@ class User_model extends CI_Model {
 
 
 	}
-	public function validateUser($user){
+	public function validateUser($user,$email){
 
-		$sql = "SELECT * FROM users WHERE username = ?";
-		$query = $this->db->query($sql, array($user));
+		$sql = "SELECT * FROM users WHERE username = ? 	OR Email = ?";
+		$query = $this->db->query($sql, array($user,$email));
 		return $query->result();
 	}
 
