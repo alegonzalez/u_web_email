@@ -11,54 +11,60 @@
 <script type="text/javascript">
 var email = [];
 function getEmail(){
+	var palabra = "";
+	var pasada = 0;
 	var dest = $('#destinario').val();
 	var numero = dest.length;
-	var palabra="";
-	var destinario="";
-	var pasada =0;
+	if(dest!=""){
+		
+		if(email.length ==0){
+			successEmail(dest);
+		}else{
+  //Se agarra el correo como tal
+  for (var i =dest.length-1; i>0; i--) {
+  	if(dest.charAt(i)==" "&&pasada==0){
 
-	
-	
-	dest.substr(0,dest.length-1);
-	for (var i =dest.length-1; i>0; i--) {
-		if(dest.charAt(i)==" "&&pasada==0){
-			
-			pasada=1;
-			palabra = dest.substring(i,numero);
-		}
-	}
-	if(palabra==""){
-		destinario = $('#destinario').val();
-	}else{
+  		pasada=1;
+  		palabra = dest.substring(i,numero);
+  		palabra = palabra.trim();
+  	}
 
-		destinario = palabra.trim();
-	}
+  }
+  successEmail(palabra);
+}
 
+
+
+}
+
+
+}
+//Verifica que el el correo sea correcto via ajax
+function successEmail(dest){
 
 	var request = $.ajax({
 		url: "<?php echo base_url('destination'); ?>",
 		method: "POST",
-		data: { "destinario" : destinario}
+		data: { "destinario" : dest}
 
 
 	});
 
 	request.done(function(msg) {
-
-		if(msg.status == 'error'){
-			$("#dest").attr({
-				'class': 'input-group col-xs-12 col-sm-10 col-sm-offset-1 col-md-10  col-md-offset-1 email_redactar has-error'
-			});
-
-
-			
-
-		}else{
-			
+		
+		if(msg.status == 'correct'){
 			$("#dest").removeClass("has-error");
 			var tamaño = email.length;
 			tamaño++;
-			email[tamaño] = destinario;
+			email[tamaño] = dest;
+			console.log(email[tamaño]);
+			
+		}else{
+			$("#dest").attr({
+				'class': 'input-group col-xs-12 col-sm-10 col-sm-offset-1 col-md-10  col-md-offset-1 email_redactar has-error'
+			});
+			
+
 		}
 
 
@@ -70,7 +76,6 @@ function getEmail(){
 
 
 	});	
-
 
 }
 
@@ -108,38 +113,74 @@ $(document).ready(function(){
 
 });   
 
-
+//Lo envia al controlador para que lo inserte en la base de datos
 function  sendEmail(){
-	var request = $.ajax({
-		url: "<?php echo base_url('redact'); ?>",
-		method: "POST",
-		data: {'destinario':email, 'asunto':$("#asunto").val(),'description':$("#texto").val()}
-	});
+	
+	var dest = $('#destinario').val() + " ";
+	var palabra = "";
+	var numero = "";
+	var exited = [];
+	
+//Se agarra el correo como tal
+for (var i =0; i <= dest.length; i++) {
+	palabra+=dest[i];
+	if(dest.charAt(i)==" "){
 
-	request.done(function(msg) {
+		palabra = palabra.trim();
 		
-		if(msg.status == 'error'){
 
-			$(".alert-danger").show();
-			$('#messageErrorEdit').text(msg.message);
+		for (var j = 0; j <=email.length; j++) {
+			if(email[j]==palabra){
+				exited.push(email[j]); 
+				palabra="";
 
-		}else if(msg.status == 'correct'){
-
-			$(".alert-danger").show();
-			$('#messageErrorEdit').text(msg.message);
-		
-			//$(".alert-danger").hide();
-
+			}
 		}
 
-	});
-
-	request.fail(function( jqXHR, textStatus ) {
-		alert( "Request failed: " + textStatus );
+	}
+}
 
 
 
-	});
+
+var request = $.ajax({
+	url: "<?php echo base_url('redact'); ?>",
+	method: "POST",
+	type:"POST",
+	data: {'destinario':exited, 'asunto':$("#asunto").val(),'description':$("#texto").val()},
+
+});
+
+request.done(function(msg) {
+	if(msg.status == 'error'){
+
+		$(".alert-danger").show();
+		$('#messageErrorEdit').text(msg.message);
+
+	}else if(msg.status == 'correct'){
+
+		$(".alert-danger").show();
+		$('#messageErrorEdit').text(msg.message);
+
+		//$("#recargar").load('http://uwebemail/codeIgniter/Email');
+
+
+	}
+
+
+
+
+});
+
+request.fail(function( jqXHR, textStatus ) {
+	alert( "Request failed: " + textStatus );
+
+
+
+});
+
+location.reload();
+
 }
 
 function editAccount() {
@@ -228,7 +269,7 @@ function loadDate(){
 			</section>
 			<section class="col-xs-11 email">
 
-				<section>
+				<section id="recargar">
 
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs col-md-10 col-md-offset-1" role="tablist">

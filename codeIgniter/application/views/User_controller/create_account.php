@@ -18,7 +18,7 @@
 			
 		});
 	});
-
+//Create account of the user
 	function createAccount() {
 
 
@@ -69,32 +69,25 @@
 
     		});
     		$('#confirm').hide();
-    		$('.window').attr({
-    			'id': 'create'
-    		});
+
 
     		$('window').show();
 
-    		
+
 
 
     	}else{
-
-    		alert("hola");
-    		debugger;
-
     		$('#myModalLabel').text('Please, see in your mail your verification code');
     		$('#codeConfirm').show();
     		$('#back').attr({
     			'class': 'btn btn-default message'
 
     		});
-    		$('.window').attr({
-    			'id': 'create'
-    		});
+
     		$('#confirm').show();
 
     	}
+
 
     });
 
@@ -175,7 +168,7 @@
 				</form>
 				
 
-				<div class="modal fade window"   aria-labelledby="myModalLabel">
+				<div class="modal fade window" id="create"   aria-labelledby="myModalLabel">
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<div class="modal-header">

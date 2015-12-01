@@ -135,7 +135,7 @@ public function validateCamp(){
 	$account['email'] = $this->input->post('Email');
 	$account['password'] = $this->input->post('password');
 	$account['repitPassword'] = $this->input->post('repitPassword');
-	$this->load->model('User_model');
+	
 	$result = $this->User_model->validateUser($account['username'],$account['email']);
 	if ((filter_var($account['email'],FILTER_VALIDATE_EMAIL))){
 
@@ -144,17 +144,21 @@ public function validateCamp(){
 		echo json_encode( array('status' => 'error','message' => 'El campo email es incorrecto'));
 		return false;
 	}
+	if(isset($result[0])){
 
-	
-	if($result[0]->UserName == $account['username']){
-		header('Content-Type: application/json');
-		echo json_encode( array('status' => 'error','message' => 'Ya existe un usuario con el nombre: ' .$result[0]->UserName));
-		return false;
-	}else if($result[0]->Email == $account['email']){
-		header('Content-Type: application/json');
-		echo json_encode( array('status' => 'error','message' => 'El correo ya ha sido utilizado, por favor intente otro correo'));
-		return false;
-	}else if($account['username']==""){
+
+		if($result[0]->UserName == $account['username']){
+			header('Content-Type: application/json');
+			echo json_encode( array('status' => 'error','message' => 'Ya existe un usuario con el nombre: ' .$result[0]->UserName));
+			return false;
+		}else if($result[0]->Email == $account['email']){
+			header('Content-Type: application/json');
+			echo json_encode( array('status' => 'error','message' => 'El correo ya ha sido utilizado, por favor intente otro correo'));
+			return false;
+		}
+
+	}
+	else if($account['username']==""){
 		header('Content-Type: application/json');
 		echo json_encode( array('status' => 'error','message' => 'El campo user no puede quedar vacio'));
 		return false;
@@ -450,8 +454,6 @@ public function redact(){
 		}
 		
 	}
-
-	redirect(base_url("getEmail"));
 
 }
 //close session
